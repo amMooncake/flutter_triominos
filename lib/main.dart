@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_triominos/choose_players.dart';
+import 'package:flutter_triominos/app.dart';
 
 void main() {
   runApp(const MainApp());
@@ -20,7 +19,7 @@ class MainApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: ChoosePlayersScreen(),
+      home: MyApp(),
     );
   }
 }

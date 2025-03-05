@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_triominos/Navigation_bloc/navigation_bloc.dart';
 
 import 'models/player.dart';
 
@@ -39,13 +41,13 @@ class _ChoosePlayersScreenState extends State<ChoosePlayersScreen> {
     setState(() {});
   }
 
-  void StartGame() {
+  void startGame() {
     if (_formKey.currentState!.validate()) {
       List<MyPlayer> players = [];
       for (var controller in _controllers) {
         players.add(MyPlayer(name: controller.text, color: Colors.primaries[_controllers.indexOf(controller)]));
       }
-      print(players);
+      context.read<NavigationBloc>().add(NavigateToGameEvent(players));
     }
   }
 
@@ -105,7 +107,7 @@ class _ChoosePlayersScreenState extends State<ChoosePlayersScreen> {
                                     crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10, childAspectRatio: 3 / 2),
                                 shrinkWrap: true,
                                 itemCount: _numbersOfPlayers,
-                                itemBuilder: (context, index) {
+                                itemBuilder: (ctx, index) {
                                   return SizedBox(
                                     height: 10,
                                     child: Padding(
@@ -172,9 +174,11 @@ class _ChoosePlayersScreenState extends State<ChoosePlayersScreen> {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 width: MediaQuery.of(context).size.width * .9,
-                height: 48,
+                height: 100,
                 child: TextButton(
-                  onPressed: StartGame,
+                  onPressed: () {
+                    startGame();
+                  },
                   child: Text("START", style: TextStyle(color: Colors.white, fontSize: 20)),
                 ),
               ),
