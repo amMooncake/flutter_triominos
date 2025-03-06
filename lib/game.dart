@@ -100,6 +100,7 @@ class _GameScreenState extends State<GameScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               players[index].name,
@@ -132,19 +133,29 @@ class _GameScreenState extends State<GameScreen> {
                             crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
                         itemCount: 6,
                         itemBuilder: (context, index) {
-                          return TextButton(
-                            style: TextButton.styleFrom(backgroundColor: addingPoints ? Colors.green : Colors.red),
-                            onPressed: () {
-                              if (addingPoints) {
-                                pointsToBeAdded += points[index];
-                              } else {
-                                pointsToBeAdded -= points[index];
-                              }
-                              setState(() {});
-                            },
-                            child: Text(
-                              "${points[index]}",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              color: addingPoints ? Colors.green : Colors.red,
+                            ),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                backgroundColor: addingPoints ? Colors.green : Colors.red,
+                              ),
+                              onPressed: () {
+                                if (gameStarted) {
+                                  if (addingPoints) {
+                                    pointsToBeAdded += points[index];
+                                  } else {
+                                    pointsToBeAdded -= points[index];
+                                  }
+                                  setState(() {});
+                                }
+                              },
+                              child: Text(
+                                "${points[index]}",
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                              ),
                             ),
                           );
                         },
